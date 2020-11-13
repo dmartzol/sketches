@@ -6,11 +6,9 @@
 const createSketch = require('canvas-sketch');
 const random = require('canvas-sketch-util/random');
 
-// Create a seeded random generator
-// const seeded = random.createRandom(986895);
 const seeded = random.createRandom(random.getRandomSeed());
+// const seeded = random.createRandom(165058);
 console.log("Seed: ", seeded.getSeed());
-
 
 
 const settings = {
@@ -44,28 +42,24 @@ const sketch = props => {
     context.stroke();
   };
 
-
-  const pallete1 = { background: '#E8DAB2', linesColor: '#29335C', primaries: ['#DB324D', '#584D3D', '#25CED1'] };
-  const pallete2 = { background: '#F0F8EA', linesColor: '#9D9C62', primaries: ['#F6D927', '#EF9D00', '#EE5508'] };
-  const pallete3 = { background: '#E8DAB2', linesColor: '#29335C', primaries: ['#F0F66E', '#E4572E', '#A8C686'] };
-  const pallete4 = { background: '#1f1f1f', linesColor: '#E8DAB2', primaries: ['#F0F66E', '#E4572E', '#A8C686'] };
-  const pallete5 = { background: '#1f1f1f', linesColor: '#F0F8EA', primaries: ['#F0F66E', '#E4572E', '#A8C686'] };
+  const pallete1 = { background: '#222222', linesColor: '#FFFFFC' };
 
   return ({ context, width, height }) => {
-    // color configuration
-    pallete = pallete5;
-
-    // backgroundColor
+    pallete = pallete1;
+    // background
     context.fillStyle = pallete.background;
     context.fillRect(0, 0, width, height)
 
+    context.strokeStyle = pallete.linesColor;
+    context.fillStyle = pallete.linesColor;
     context.lineWidth = 0.01;
     rows = 10
     cols = 5
-    probabilityFill = 0.5
+    probabilityFill = 0.1
+    probabilityBigCircle = 0.5
     bigRadius = 0.05
-    radiusSlot = 0.01
-    linesCount = 5
+    smallRadius = 0.01
+    linesCount = 9
     points = []
     // creating array of points
     for (let x = 1; x <= cols; x++) {
@@ -78,18 +72,15 @@ const sketch = props => {
       numOfCircles = seeded.range(5)
       for (let n = 0; n < numOfCircles; n++) {
         fill = seeded.chance(probability = probabilityFill);
-        color = seeded.pick(pallete.primaries);
-        context.strokeStyle = color;
-        context.fillStyle = color;
-        radius = radiusSlot * seeded.range(15);
+        radius = fill ? smallRadius : bigRadius * seeded.range(3);
         circle(context, points[i][0], points[i][1], radius, fill)
       }
     }
-    // creating linesColor between random points
+    // creating lines between random points
     for (let i = 0; i < linesCount; i++) {
       a = seeded.pick(points)
       b = seeded.pick(points)
-      line(context, a[0], a[1], b[0], b[1], 0.01, pallete.linesColor)
+      line(context, a[0], a[1], b[0], b[1], 0.01, '#FFFFFC')
     }
   };
 };
