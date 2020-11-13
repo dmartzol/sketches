@@ -15,7 +15,7 @@ console.log("Seed: ", seeded.getSeed());
 
 const settings = {
   // Measurements of artwork
-  dimensions: [5, 5],
+  dimensions: [5 * 1125 / 2436, 5],
   // Use a higher density for print resolution
   // (this defaults to 72, which is good for web)
   pixelsPerInch: 500,
@@ -58,11 +58,12 @@ const sketch = props => {
     context.fillRect(0, 0, width, height)
 
     context.lineWidth = 0.01;
-    rows = 5
+    rows = 10
     cols = 5
     probabilityFill = 0.5
     bigRadius = 0.05
     radiusSlot = 0.01
+    linesCount = 5
     points = []
     // creating array of points
     for (let x = 1; x <= cols; x++) {
@@ -83,7 +84,7 @@ const sketch = props => {
       }
     }
     // creating linesColor between random points
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < linesCount; i++) {
       a = seeded.pick(points)
       b = seeded.pick(points)
       line(context, a[0], a[1], b[0], b[1], 0.01, pallete.linesColor)
