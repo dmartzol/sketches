@@ -58,9 +58,9 @@ const sketch = ({ width, height }) => {
   const minCircles = 1 // minimum number of circles in every point
   const maxCircles = 5
   const lineWidth = 0.01
-  const rows = 5
-  const cols = 5
-  const probabilityFill = 0.1
+  const rows = 15
+  const cols = 15
+  const probabilityFill = 0.05
   const radiusSlot = 0.01
 
 
@@ -78,11 +78,13 @@ const sketch = ({ width, height }) => {
   points.forEach(point => {
     numOfCircles = random.rangeFloor(minCircles, maxCircles)
     for (let n = 0; n < numOfCircles; n++) {
+      radius = radiusSlot * random.range(1, 15)
+      fill = radius < radiusSlot * 8 ? random.chance(probability = probabilityFill) : false
       circles.push({
         x: point.x,
         y: point.y,
-        radius: radiusSlot * random.range(1, 15),
-        fill: random.chance(probability = probabilityFill),
+        radius: radius,
+        fill: fill,
         color: random.pick(pallete.primaries)
       })
     }
