@@ -93,8 +93,8 @@ const sketch = ({ width, height }) => {
 
   lines = []
   // creating lines between random points
+  a = random.pick(points)
   for (let i = 0; i < 10; i++) {
-    a = random.pick(points)
     b = random.pick(points)
     lines.push({ x0: a.x, y0: a.y, x1: b.x, y1: b.y, thickness: lineWidth, color: pallete.linesColor })
   }
