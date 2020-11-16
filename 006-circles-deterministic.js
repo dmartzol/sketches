@@ -54,18 +54,21 @@ const sketch = ({ width, height }) => {
   const pallete3 = { background: '#E8DAB2', linesColor: '#29335C', primaries: ['#F0F66E', '#E4572E', '#A8C686'] };
   const pallete4 = { background: '#FFFFFC', linesColor: '#222222', primaries: ['#222222', '#222222', '#222222'] };
   const pallete5 = { background: '#222222', linesColor: '#FFFFFC', primaries: ['#FFFFFC', '#FFFFFC', '#FFFFFC'] };
-  const pallete6 = { background: '#FFFFFC', linesColor: '#DB324D', primaries: ['#222222', '#222222', '#222222'] };
+  const pallete6 = { background: '#222222', linesColor: '#DB324D', primaries: ['#FFFFFC', '#FFFFFC', '#FFFFFC'] };
+  const pallete7 = { background: '#FFFFFC', linesColor: '#DB324D', primaries: ['#222222', '#222222', '#222222'] };
+  const pallete8 = { background: '#FFFFFC', linesColor: '#F6D927', primaries: ['#222222', '#222222', '#222222'] };
+  const pallete9 = { background: '#222222', linesColor: '#F6D927', primaries: ['#FFFFFC', '#FFFFFC', '#FFFFFC'] };
 
-  const pallete = pallete1
+  const pallete = pallete9
   // circles settings
   const minCircles = 1 // minimum number of circles in every point
   const maxCircles = 5
-  const circleStroke = 0.01
+  const circleStroke = 0.03
   const probabilityFill = 0.05
   const radiusSlot = 0.01
   // lines settings
-  const lineWidth = 0.02
-  const linesCount = 3
+  const lineWidth = 0.03
+  const linesCount = 20
   // grid settings
   const rows = 15
   const cols = 15
@@ -101,9 +104,8 @@ const sketch = ({ width, height }) => {
 
   lines = []
   // creating lines between random points
-  b = random.pick(points)
+  a = random.pick(points)
   for (let i = 0; i < linesCount; i++) {
-    a = b
     b = random.pick(points)
     lines.push({ x0: a.x, y0: a.y, x1: b.x, y1: b.y, thickness: lineWidth, color: pallete.linesColor })
   }
@@ -114,11 +116,11 @@ const sketch = ({ width, height }) => {
     context.fillStyle = pallete.background;
     context.fillRect(0, 0, width, height)
     context.lineWidth = lineWidth;
-    circles.forEach(circle => {
-      drawCircle(context, circle.x, circle.y, circle.radius, circle.fill, circle.thickness, circle.color)
-    });
     lines.forEach(line => {
       drawLine(context, line.x0, line.y0, line.x1, line.y1, line.thickness, line.color)
+    });
+    circles.forEach(circle => {
+      drawCircle(context, circle.x, circle.y, circle.radius, circle.fill, circle.thickness, circle.color)
     });
   };
 };
